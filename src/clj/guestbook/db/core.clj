@@ -1,17 +1,16 @@
 (ns guestbook.db.core
   (:require
-    [clojure.java.jdbc :as jdbc]
-    [conman.core :as conman]
-    [java-time.pre-java8 :as jt]
-    [mount.core :refer [defstate]]
-    [guestbook.config :refer [env]]))
+   [clojure.java.jdbc :as jdbc]
+   [conman.core :as conman]
+   [java-time.pre-java8 :as jt]
+   [mount.core :refer [defstate]]
+   [guestbook.config :refer [env]]))
 
 (defstate ^:dynamic *db*
-          :start (conman/connect! {:jdbc-url (env :database-url)})
-          :stop (conman/disconnect! *db*))
+  :start (conman/connect! {:jdbc-url (env :database-url)})
+  :stop (conman/disconnect! *db*))
 
 (conman/bind-connection *db* "sql/queries.sql")
-
 
 (extend-protocol jdbc/IResultSetReadColumn
   java.sql.Timestamp

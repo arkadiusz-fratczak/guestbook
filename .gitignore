@@ -1,4 +1,7 @@
 **/.idea
 **/target
+/log
 *.iml
+*.db
 .nrepl-port
+.lein-repl-history
